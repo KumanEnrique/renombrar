@@ -4,20 +4,16 @@ fs.readdir("./entrada/",(error,files)=>{
     if(error){
         console.log(`el error es: ${error}`)
     }else{
-        // console.log(files)
-        const regex = /y2mate.com - /
-        // console.log(regex);
+        const regex = /[0-9]{1,}.mp4/;//buscar un conjunto de numeros y .mp4
         files.forEach((file)=>{
-            const match = regex.exec(file)
-            const cadenaNew = file.slice(13,file[file.length])
-            // console.log(cadenaNew);
-            const newPath = __dirname+`/salida/${cadenaNew}`
-            fs.rename('./entrada/'+file,newPath,(error)=>{
+            // console.log(file)
+            const res = regex.exec(file)//resultado de la busqueda
+            const newPath = `${__dirname}/salida/ONE PIECE ${res}`
+            fs.rename(`./entrada/${file}`,newPath,(error)=>{
                 if(error){
-                    console.log(`el error es: ${error}`)
-                }else{
-                    console.log('exito!!')
+                    throw error
                 }
+                console.log("exito")
             })
         })
     }
